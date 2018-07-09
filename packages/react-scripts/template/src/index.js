@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-snapshot';
-import './index.css';
+import './index.scss';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
