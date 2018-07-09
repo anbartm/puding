@@ -2,11 +2,14 @@
 
 Features:
 
+- Hot reloading
 - SASS & Foundation
-- Inline SVG
-- Markdown support
+- Inline SVG loader & component
+- Markdown (& front-matter) support
 - Netlify CMS
-- Multiplytix
+- Multiplytix (GA, Fb pixel, Mixpanel, ...)
+- Webfontloader
+- classnames
 
 ## Usage
 
