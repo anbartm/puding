@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import logo from './logo.svg';
 import './App.scss';
 import classNames from 'classnames';
@@ -11,6 +12,7 @@ class App extends Component {
     multiplytixView: PropTypes.func,
   };
   render() {
+    const { multiplytixEvent } = this.context;
     const appClassName = classNames({
       App: true,
     });
