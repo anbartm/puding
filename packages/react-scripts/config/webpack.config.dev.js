@@ -213,6 +213,32 @@ module.exports = {
               },
             ],
           },
+          // SASS
+          {
+            test: /\.s(a|c)ss$/,
+            use: [
+              {
+                loader: 'style-loader', // creates style nodes from JS strings
+              },
+              {
+                loader: 'css-loader', // translates CSS into CommonJS
+                options: {
+                  modules: false,
+                  sourceMap: true,
+                  importLoaders: 2,
+                  localIdentName: '[name]__[local]__[hash:base64:5]',
+                },
+              },
+              {
+                loader: 'sass-loader', // compiles Sass to CSS
+              },
+            ],
+          },
+          // SVG
+          {
+            test: /\.svg$/,
+            loader: 'svg-inline-loader',
+          },
           // "file" loader makes sure those assets get served by WebpackDevServer.
           // When you `import` an asset, you get its (virtual) filename.
           // In production, they would get copied to the `build` folder.
