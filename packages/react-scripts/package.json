@@ -1,14 +1,14 @@
 {
-  "name": "react-scripts",
+  "name": "cofab-react-scripts",
   "version": "1.1.4",
-  "description": "Configuration and scripts for Create React App.",
-  "repository": "facebookincubator/create-react-app",
+  "description": "Configuration and scripts for Create Cofab App.",
+  "repository": "cofablab/create-cofab-app",
   "license": "MIT",
   "engines": {
     "node": ">=6"
   },
   "bugs": {
-    "url": "https://github.com/facebookincubator/create-react-app/issues"
+    "url": "https://github.com/cofablab/create-cofab-app/issues"
   },
   "files": [
     "bin",
