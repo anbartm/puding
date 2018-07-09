@@ -24,7 +24,7 @@ class App extends Component {
             className="App-logo"
             alt="logo"
             element="div"
-            onMouseOver={multiplytixEvent('LogoHover', {})}
+            onMouseOver={e => multiplytixEvent('LogoHover', {})}
           />
           <h1 className="App-title">Welcome to React</h1>
         </header>
