@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import logo from './logo.svg';
+import logo from './assets/logo.svg';
 import './App.scss';
 import classNames from 'classnames';
 import SVG from './components/SVG';
@@ -23,6 +23,7 @@ class App extends Component {
             src={logo}
             className="App-logo"
             alt="logo"
+            element="div"
             onMouseOver={multiplytixEvent('LogoHover', {})}
           />
           <h1 className="App-title">Welcome to React</h1>
