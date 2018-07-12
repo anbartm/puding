@@ -25,11 +25,11 @@ Upcoming:
 
 ## Usage
 
-`npm init react-app my-app --scripts-version cofab-react-scripts`
+`npm init react-app my-app --scripts-version puding`
 
 or
 
-`yarn create react-app my-app --scripts-version cofab-react-scripts`
+`yarn create react-app my-app --scripts-version puding`
 
 Refer to [Create React App](https://github.com/facebook/create-react-app) documentation on how to non-destructively upgrade the project, or how to `eject` to fully customize the underlying configuration.
 
