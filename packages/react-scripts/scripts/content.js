@@ -15,7 +15,7 @@ function loadFrontMatter(path) {
 }
 
 function getMDPath(name) {
-  return `src/content/${name}.md`;
+  return `${CONTENT_DIR}/${name}.md`;
 }
 
 function loadFrontMatter(path) {
@@ -96,22 +96,24 @@ const getDirectories = source =>
     .filter(isDirectory);
 
 const directories = getDirectories(CONTENT_DIR);
-
-const collectionNames = directories.map(path => path.split('/').slice(-1)[0]);
+const folderName = path => path.split('/').slice(-1)[0];
+const collectionNames = directories.map(path => folderName(path));
 
 let collections = {};
 for (name of collectionNames) {
   collections[name] = getCollection(name);
 }
 
-module.exports = JSON.stringify({ ...collections });
+fs.writeFile(
+  `${CONTENT_DIR}/index.json`,
+  JSON.stringify({ ...collections }),
+  err => {
+    if (err) {
+      throw err;
+    }
 
-fs.writeFile(`${CONTENT_DIR}/index.json`, module.exports, err => {
-  if (err) {
-    throw err;
+    console.log(
+      `Saved ${collectionNames.join(', ')} ` + `to ${CONTENT_DIR}/index.json`
+    );
   }
-
-  console.log(
-    `Saved ${collectionNames.join(', ')} to ${CONTENT_DIR}/index.json`
-  );
-});
+);
