@@ -1,6 +1,6 @@
 {
   "name": "cofab-react-scripts",
-  "version": "1.1.13",
+  "version": "1.1.14",
   "description": "Configuration and scripts for Create Cofab App.",
   "repository": "cofablab/create-cofab-app",
   "license": "MIT",
@@ -44,6 +44,7 @@
     "eslint-plugin-react": "7.4.0",
     "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "1.1.5",
+    "filewatcher-webpack-plugin": "^1.2.0",
     "foundation-sites": "^6.5.0-rc.1",
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",

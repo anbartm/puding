@@ -9,6 +9,9 @@
 # production
 /build
 
+# content index
+/src/content/index.json
+
 # misc
 .DS_Store
 .env.local

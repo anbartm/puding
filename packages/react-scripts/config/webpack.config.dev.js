@@ -20,6 +20,10 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
 
+// PUDING: Dependencies
+const FilewatcherPlugin = require('filewatcher-webpack-plugin');
+const exec = require('child_process').exec;
+
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
 const publicPath = '/';
@@ -29,6 +33,18 @@ const publicPath = '/';
 const publicUrl = '';
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
+
+// PUDING: Rebuild content
+const rebuildContent = () => {
+  const child = exec('yarn content', (error, stdout, stderr) => {
+    if (error !== null) {
+      console.log('exec error: ' + error);
+    } else {
+      console.log(stdout);
+      console.log(stderr);
+    }
+  });
+};
 
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
@@ -213,7 +229,7 @@ module.exports = {
               },
             ],
           },
-          // SASS
+          // PUDING: SASS
           {
             test: /\.s(a|c)ss$/,
             use: [
@@ -234,7 +250,7 @@ module.exports = {
               },
             ],
           },
-          // SVG
+          // PUDING: SVG
           {
             test: /\.svg$/,
             loader: 'svg-inline-loader',
@@ -294,6 +310,13 @@ module.exports = {
     // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    // PUDING: Watch for content changes
+    new FilewatcherPlugin({
+      watchFileRegex: ['src/content/**/*.md'],
+      onChangeCallback: function(path) {
+        rebuildContent();
+      },
+    }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

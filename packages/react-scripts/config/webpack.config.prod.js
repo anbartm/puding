@@ -240,7 +240,7 @@ module.exports = {
             ),
             // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
           },
-          // SASS loader
+          // PUDING: SASS loader
           {
             test: /\.s(a|c)ss$/,
             loader: ExtractTextPlugin.extract(
@@ -270,7 +270,7 @@ module.exports = {
             ),
             // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
           },
-          // SVG
+          // PUDING: SVG
           {
             test: /\.svg$/,
             loader: 'svg-inline-loader',
@@ -386,7 +386,7 @@ module.exports = {
       // Don't precache sourcemaps (they're large) and build asset manifest:
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
     }),
-    // Copy CMS uploads
+    // PUDING: Copy CMS uploads
     new CopyWebpackPlugin(
       [{ from: 'src/assets/uploads', to: 'assets/uploads' }],
       {}
