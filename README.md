@@ -2,6 +2,8 @@
 
 > [**Create React App**](https://github.com/facebook/create-react-app) fork by Cofab
 
+[![NPM](https://img.shields.io/npm/v/puding.svg)](https://www.npmjs.com/package/puding)
+
 > Intended for prototyping experiments, delivered as PWAs
 
 Features & included packages:
@@ -10,7 +12,7 @@ Features & included packages:
 - Static snapshotting for production
 - SASS & Foundation 6
 - Inline SVG loader & component
-- Multiplytix (GA, Fb pixel, Mixpanel, ...)
+- [Multicat](https://github.com/cofablab/multicat) analytics (GA, Fb pixel, Mixpanel, ...)
 - Markdown (& front-matter) support
 - Netlify CMS
 - Utilities and helpers (classnames, ...)

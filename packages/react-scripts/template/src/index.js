@@ -1,15 +1,15 @@
 import React from 'react';
 import { render } from 'react-snapshot';
-import { Provider } from 'multiplytix-react';
+import { Provider } from 'multicat-react';
 import './index.scss';
 import App from './App';
-import multiplytixConfig from './multiplytix.config.js';
+import multicatConfig from './multicat.config.js';
 import registerServiceWorker from './registerServiceWorker';
 
 const rootEl = document.getElementById('root');
 
 render(
-  <Provider config={multiplytixConfig}>
+  <Provider config={multicatConfig}>
     <App />
   </Provider>,
   rootEl
@@ -18,7 +18,7 @@ render(
 if (module.hot) {
   module.hot.accept('./App', () => {
     render(
-      <Provider config={multiplytixConfig}>
+      <Provider config={multicatConfig}>
         <App />
       </Provider>,
       rootEl

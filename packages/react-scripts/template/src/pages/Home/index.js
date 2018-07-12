@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { withMultiplytix } from 'multiplytix-react';
+import { withMulticat } from 'multicat-react';
 
 class Home extends PureComponent {
   static propTypes = {
-    multiplytixEvent: PropTypes.func,
-    multiplytixView: PropTypes.func,
+    multicatEvent: PropTypes.func,
+    multicatView: PropTypes.func,
   };
   componentDidMount() {
-    const { multiplytixView } = this.props;
-    multiplytixView('/');
+    const { multicatView } = this.props;
+    multicatView('/');
   }
   render() {
     return (
@@ -22,4 +22,4 @@ class Home extends PureComponent {
   }
 }
 
-export default withMultiplytix(Home);
+export default withMulticat(Home);

@@ -9,7 +9,7 @@ const PINTEREST_ID = process.env.REACT_APP_PINTEREST_ID;
 const REDDIT_PIXEL_Q = process.env.REACT_APP_REDDIT_PIXEL_Q;
 const REDDIT_PIXEL_S = process.env.REACT_APP_REDDIT_PIXEL_S;
 
-const multiplytixConfig = {
+const multicatConfig = {
   google_analytics: GOOGLE_ANALYTICS_ID,
   google_remarketing: GOOGLE_REMARKETING_TAG,
   mixpanel: MIXPANEL_ID,
@@ -22,4 +22,4 @@ const multiplytixConfig = {
   reddit_pixel_s: REDDIT_PIXEL_S,
 };
 
-export default multiplytixConfig;
+export default multicatConfig;

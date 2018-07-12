@@ -8,11 +8,11 @@ import Home from './pages/Home';
 
 class App extends Component {
   static contextTypes = {
-    multiplytixEvent: PropTypes.func,
-    multiplytixView: PropTypes.func,
+    multicatEvent: PropTypes.func,
+    multicatView: PropTypes.func,
   };
   render() {
-    const { multiplytixEvent } = this.context;
+    const { multicatEvent } = this.context;
     const appClassName = classNames({
       App: true,
     });
@@ -24,7 +24,7 @@ class App extends Component {
             className="App-logo"
             alt="logo"
             element="div"
-            onMouseOver={e => multiplytixEvent('LogoHover', {})}
+            onMouseOver={e => multicatEvent('LogoHover', {})}
           />
           <h1 className="App-title">Welcome to React</h1>
         </header>
