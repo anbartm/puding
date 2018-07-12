@@ -17,6 +17,12 @@ const paths = require('./paths');
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
 const host = process.env.HOST || '0.0.0.0';
 
+// PUDING: Get uploaded asset
+const getUploadedAsset = (req, res) => {
+  const joinedPath = `${paths.appSrc}/assets/uploads${req.url}`;
+  res.sendFile(joinedPath);
+};
+
 module.exports = function(proxy, allowedHost) {
   return {
     // WebpackDevServer 2.4.3 introduced a security fix that prevents remote
@@ -98,6 +104,11 @@ module.exports = function(proxy, allowedHost) {
       // it used the same host and port.
       // https://github.com/facebookincubator/create-react-app/issues/2272#issuecomment-302832432
       app.use(noopServiceWorkerMiddleware());
+      // PUDING: Host uploaded assets in development mode
+      app.use(
+        `${config.output.publicPath.slice(0, -1)}/assets/uploads`,
+        getUploadedAsset
+      );
     },
   };
 };
