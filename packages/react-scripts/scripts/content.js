@@ -1,5 +1,7 @@
 const fs = require('fs');
-const md5 = require('md5');
+const { lstatSync, readdirSync } = fs;
+const { join } = require('path');
+// const md5 = require('md5');
 
 const { loadFront } = require('yaml-front-matter');
 
@@ -39,7 +41,27 @@ function getItem(collection, file) {
   return { ...frontMatter };
 }
 
-function getCollection(collection, compareFunc) {
+function sortByDate(a, b, order = 'ASC') {
+  const aScore = new Date(a.date);
+  const bScore = new Date(b.date);
+  if (order.toUpperCase() === 'ASC') {
+    return bScore - aScore;
+  } else {
+    return aScore - bScore;
+  }
+}
+
+function sortByOrder(a, b, order = 'ASC') {
+  const aScore = new Number(a.order);
+  const bScore = new Number(b.order);
+  if (order.toUpperCase() === 'ASC') {
+    return bScore - aScore;
+  } else {
+    return aScore - bScore;
+  }
+}
+
+function getCollection(collection) {
   const items = [];
 
   fs.readdirSync(`${CONTENT_DIR}/${collection}`).forEach(file => {
@@ -52,30 +74,44 @@ function getCollection(collection, compareFunc) {
     }
   });
 
-  if (!compareFunc) {
-    return items;
-  } else {
-    return items.sort(compareFunc);
+  if (items && items[0]) {
+    if (items[0].date !== undefined) {
+      console.log(`Sorting ${collection} by date field`);
+      return items.sort(sortByDate);
+    } else {
+      if (items[0].order !== undefined) {
+        console.log(`Sorting ${collection} by order field`);
+        return items.sort(sortByOrder);
+      } else {
+        return items;
+      }
+    }
   }
 }
 
-var articles = getCollection(
-  'articles',
-  (a, b) => new Date(b.date) - new Date(a.date)
-);
+const isDirectory = source => lstatSync(source).isDirectory();
+const getDirectories = source =>
+  readdirSync(source)
+    .map(name => join(source, name))
+    .filter(isDirectory);
 
-module.exports = JSON.stringify({ articles });
+const directories = getDirectories(CONTENT_DIR);
 
-const args = process.argv.slice(2);
-if (true || args[0] == '--save') {
-  fs.writeFile('src/content/index.json', module.exports, err => {
-    if (err) {
-      throw err;
-    }
-    // for(var i = 0; i < articles.length; i++) {
-    //   var article = articles[i]
-    //   console.log(`https://early.betaport.io?c=${article.hash} = ${article.id}`)
-    // }
-    console.log('Saved to src/content/index.json');
-  });
+const collectionNames = directories.map(path => path.split('/').slice(-1)[0]);
+
+let collections = {};
+for (name of collectionNames) {
+  collections[name] = getCollection(name);
 }
+
+module.exports = JSON.stringify({ ...collections });
+
+fs.writeFile(`${CONTENT_DIR}/index.json`, module.exports, err => {
+  if (err) {
+    throw err;
+  }
+
+  console.log(
+    `Saved ${collectionNames.join(', ')} to ${CONTENT_DIR}/index.json`
+  );
+});
