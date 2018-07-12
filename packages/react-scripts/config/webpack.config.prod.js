@@ -37,6 +37,14 @@ const publicUrl = publicPath.slice(0, -1);
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
 
+// PUDING: Check if uploads exist
+const fs = require('fs');
+const uploadsExist = fs.existsSync('src/assets/uploads');
+const copyablePaths = uploadsExist
+  ? [{ from: 'src/assets/uploads', to: 'assets/uploads' }]
+  : [];
+const copyWebpackPlugin = new CopyWebpackPlugin(copyablePaths, {});
+
 // Assert this just to be safe.
 // Development builds of React are slow and not intended for production.
 if (env.stringified['process.env'].NODE_ENV !== '"production"') {
@@ -387,10 +395,7 @@ module.exports = {
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
     }),
     // PUDING: Copy CMS uploads
-    new CopyWebpackPlugin(
-      [{ from: 'src/assets/uploads', to: 'assets/uploads' }],
-      {}
-    ),
+    copyWebpackPlugin,
     // Moment.js is an extremely popular library that bundles large locale files
     // by default due to how Webpack interprets its code. This is a practical
     // solution that requires the user to opt into importing specific locales.
