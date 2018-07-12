@@ -313,6 +313,9 @@ module.exports = {
     // PUDING: Watch for content changes
     new FilewatcherPlugin({
       watchFileRegex: ['src/content/**/*.md'],
+      onReadyCallback: function() {
+        void 0;
+      },
       onChangeCallback: function(path) {
         rebuildContent();
       },
