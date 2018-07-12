@@ -54,7 +54,7 @@ function sortByDate(a, b, order = 'ASC') {
 function sortByOrder(a, b, order = 'ASC') {
   const aScore = new Number(a.order);
   const bScore = new Number(b.order);
-  if (order.toUpperCase() === 'ASC') {
+  if (order.toUpperCase() !== 'ASC') {
     return bScore - aScore;
   } else {
     return aScore - bScore;
