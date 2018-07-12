@@ -1,26 +1,26 @@
 import React from 'react';
 import { render } from 'react-snapshot';
-import { Provider } from 'multicat-react';
+import { Provider as MulticatProvider } from 'multicat-react';
+import multicatConfig from './multicat.config.js';
 import './index.scss';
 import App from './App';
-import multicatConfig from './multicat.config.js';
 import registerServiceWorker from './registerServiceWorker';
 
 const rootEl = document.getElementById('root');
 
 render(
-  <Provider config={multicatConfig}>
+  <MulticatProvider config={multicatConfig}>
     <App />
-  </Provider>,
+  </MulticatProvider>,
   rootEl
 );
 
 if (module.hot) {
   module.hot.accept('./App', () => {
     render(
-      <Provider config={multicatConfig}>
+      <MulticatProvider config={multicatConfig}>
         <App />
-      </Provider>,
+      </MulticatProvider>,
       rootEl
     );
   });
