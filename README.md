@@ -17,6 +17,7 @@ Features & included packages:
 
 Upcoming:
 
+- OpenGraph content strategy (& React Helmet)
 - PWA Manifest
 - Redux & Router
 - Webfontloader
