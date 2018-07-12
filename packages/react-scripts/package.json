@@ -1,14 +1,14 @@
 {
   "name": "puding",
-  "version": "1.1.16",
+  "version": "1.1.17",
   "description": "Configuration and scripts for Create Cofab App.",
-  "repository": "cofablab/create-cofab-app",
+  "repository": "cofablab/puding",
   "license": "MIT",
   "engines": {
     "node": ">=6"
   },
   "bugs": {
-    "url": "https://github.com/cofablab/create-cofab-app/issues"
+    "url": "https://github.com/cofablab/puding/issues"
   },
   "files": [
     "bin",

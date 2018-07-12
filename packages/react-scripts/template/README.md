@@ -1,3 +1,3 @@
-# React App
+# Puding App
 
-Initialized with [Create Cofab App](https://github.com/cofablab/create-cofab-app).
+React app initialized with [Puding](https://github.com/cofablab/puding).

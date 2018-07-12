@@ -1,4 +1,4 @@
-# Create Cofab App
+# Puding
 
 > [**Create React App**](https://github.com/facebook/create-react-app) fork by Cofab
 
