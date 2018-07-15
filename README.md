@@ -6,7 +6,7 @@
 
 > Intended for prototyping experiments, delivered as PWAs
 
-Features & included packages:
+Features:
 
 - Hot reloading in development
 - Static snapshotting for production
@@ -34,6 +34,23 @@ or
 `yarn create react-app my-app --scripts-version puding`
 
 Refer to [Create React App](https://github.com/facebook/create-react-app) documentation on how to non-destructively upgrade the project, or how to `eject` to fully customize the underlying configuration.
+
+## Dependencies
+
+These additional dependencies were added to [those specified by Create React App](https://github.com/facebook/create-react-app/blob/next/packges/react-scripts/package.json):
+
+- `classnames`
+- `copy-webpack-plugin`
+- `filewatcher-webpack-plugin`
+- `foundation-sites`
+- `marked`
+- `multicat`
+- `node_sass`
+- `react-hot-loader`
+- `react-snapshot`
+- `svg-inline-loader`
+- `svg-inline-react`
+- `yaml-front-matter`
 
 ## License
 
