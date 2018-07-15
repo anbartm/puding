@@ -1,6 +1,7 @@
 const fs = require('fs');
 const { lstatSync, readdirSync } = fs;
 const { join } = require('path');
+const marked = require('marked');
 // const md5 = require('md5');
 
 const { loadFront } = require('yaml-front-matter');
@@ -38,7 +39,8 @@ function getItem(collection, file) {
   const filePath = getMDPath(path);
   const frontMatter = loadFrontMatter(filePath);
   // const hash = md5(frontMatter.id).substring(0, 6)
-  return { ...frontMatter };
+  const __content = marked(frontMatter.__content);
+  return { ...frontMatter, __content };
 }
 
 function sortByDate(a, b, order = 'ASC') {
