@@ -1,6 +1,6 @@
 {
   "name": "puding",
-  "version": "1.1.20",
+  "version": "1.1.21",
   "description": "Configuration and scripts for Create Cofab App.",
   "repository": "cofablab/puding",
   "license": "MIT",
@@ -50,7 +50,6 @@
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
     "marked": "^0.4.0",
-    "multicat-react": "^0.0.15",
     "node-sass": "^4.9.2",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
