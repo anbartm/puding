@@ -41,7 +41,7 @@ These additional dependencies were added to [those specified by Create React App
 
 - `classnames`
 - `copy-webpack-plugin`
-- `filewatcher-webpack-plugin`
+- `filewatcher-webpack-plugin` // TODO: Upgrade deps (`npm audit`)
 - `foundation-sites`
 - `marked`
 - `multicat`
