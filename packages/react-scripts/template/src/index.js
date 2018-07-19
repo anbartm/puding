@@ -6,24 +6,11 @@ import './index.scss';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-const rootEl = document.getElementById('root');
-
 render(
   <MulticatProvider config={multicatConfig}>
     <App />
   </MulticatProvider>,
-  rootEl
+  document.getElementById('root')
 );
-
-if (module.hot) {
-  module.hot.accept('./App', () => {
-    render(
-      <MulticatProvider config={multicatConfig}>
-        <App />
-      </MulticatProvider>,
-      rootEl
-    );
-  });
-}
 
 registerServiceWorker();

@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import logo from './assets/logo.svg';
-import './App.scss';
 import classNames from 'classnames';
-import SVG from './components/SVG';
+import { hot } from 'react-hot-loader';
+
 import Home from './pages/Home';
+import SVG from './components/SVG';
+import logo from './assets/logo.svg';
+
+import './App.scss';
 
 class App extends Component {
   static contextTypes = {
@@ -34,4 +37,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default hot(module)(App);
