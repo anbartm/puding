@@ -68,6 +68,36 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 // injected into the application via DefinePlugin in Webpack configuration.
 const REACT_APP = /^REACT_APP_/i;
 
+// PUDING: Prepare OpenGraph data variables
+const contentIndexPath = 'src/content/index.json';
+let openGraphData = {
+  OPENGRAPH_TITLE: null,
+  OPENGRAPH_DESCRIPTION: null,
+  OPENGRAPH_IMAGE: null,
+};
+if (fs.existsSync(contentIndexPath)) {
+  const indexFile = fs.readFileSync(contentIndexPath);
+  const contentIndex = require(`${appDirectory}/${contentIndexPath}`);
+  if (contentIndex) {
+    const { pages } = contentIndex;
+    if (pages) {
+      const homePage = pages.find(page => page.id === 'home');
+      if (homePage) {
+        const {
+          open_graph_title: OPENGRAPH_TITLE,
+          open_graph_description: OPENGRAPH_DESCRIPTION,
+          open_graph_image: OPENGRAPH_IMAGE,
+        } = homePage;
+        openGraphData = {
+          OPENGRAPH_TITLE,
+          OPENGRAPH_DESCRIPTION,
+          OPENGRAPH_IMAGE,
+        };
+      }
+    }
+  }
+}
+
 function getClientEnvironment(publicUrl) {
   const raw = Object.keys(process.env)
     .filter(key => REACT_APP.test(key))
@@ -85,6 +115,8 @@ function getClientEnvironment(publicUrl) {
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
         PUBLIC_URL: publicUrl,
+        // PUDING: OpenGraph data from the content index
+        ...openGraphData,
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin
