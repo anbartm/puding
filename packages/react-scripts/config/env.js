@@ -76,7 +76,6 @@ let openGraphData = {
   OPENGRAPH_IMAGE: null,
 };
 if (fs.existsSync(contentIndexPath)) {
-  const indexFile = fs.readFileSync(contentIndexPath);
   const contentIndex = require(`${appDirectory}/${contentIndexPath}`);
   if (contentIndex) {
     const { pages } = contentIndex;
@@ -88,10 +87,11 @@ if (fs.existsSync(contentIndexPath)) {
           open_graph_description: OPENGRAPH_DESCRIPTION,
           open_graph_image: OPENGRAPH_IMAGE,
         } = homePage;
+        const { homepage } = require(`${appDirectory}/package.json`);
         openGraphData = {
           OPENGRAPH_TITLE,
           OPENGRAPH_DESCRIPTION,
-          OPENGRAPH_IMAGE,
+          OPENGRAPH_IMAGE: `${homepage}${OPENGRAPH_IMAGE}`,
         };
       }
     }
