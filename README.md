@@ -52,9 +52,11 @@ These additional dependencies were added to [those specified by Create React App
 - `svg-inline-react`
 - `yaml-front-matter`
 
-## License
+## License & Contributors
 
 MIT © [Cofab](https://github.com/cofablab)
+
+- [Contributors](https://github.com/cofablab/puding/graphs/contributors)
 
 ---
 
