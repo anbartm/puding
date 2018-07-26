@@ -55,3 +55,7 @@ These additional dependencies were added to [those specified by Create React App
 ## License
 
 MIT © [Cofab](https://github.com/cofablab)
+
+---
+
+You can find more tools like this on the [Cofab](https://cofablab.com/) website.
