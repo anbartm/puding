@@ -190,8 +190,12 @@ module.exports = {
               // It enables caching results in ./node_modules/.cache/babel-loader/
               // directory for faster rebuilds.
               cacheDirectory: true,
-              // PUDING: Hot reload components
-              plugins: ['react-hot-loader/babel'],
+              // PUDING: Hot reload components,
+              // PUDING: Support Babel macros
+              plugins: [
+                require.resolve('react-hot-loader/babel'),
+                require.resolve('babel-plugin-macros'),
+              ],
             },
           },
           // "postcss" loader applies autoprefixer to our CSS.
@@ -236,10 +240,10 @@ module.exports = {
             test: /\.s(a|c)ss$/,
             use: [
               {
-                loader: 'style-loader', // creates style nodes from JS strings
+                loader: require.resolve('style-loader'), // creates style nodes from JS strings
               },
               {
-                loader: 'css-loader', // translates CSS into CommonJS
+                loader: require.resolve('css-loader'), // translates CSS into CommonJS
                 options: {
                   modules: false,
                   sourceMap: true,
@@ -248,14 +252,57 @@ module.exports = {
                 },
               },
               {
-                loader: 'sass-loader', // compiles Sass to CSS
+                loader: require.resolve('sass-loader'), // compiles Sass to CSS
               },
             ],
           },
           // PUDING: SVG
+          // Use svgr for JavaScript
           {
-            test: /\.svg$/,
-            loader: 'svg-inline-loader',
+            test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+            issuer: {
+              test: /\.jsx?$/,
+            },
+            // Import both as component and url
+            use: [
+              require.resolve('babel-loader'),
+              {
+                loader: require.resolve('@svgr/webpack'),
+                options: {
+                  svgo: false, // TODO: svgo removes viewBox
+                },
+              },
+              require.resolve('url-loader'),
+            ],
+          },
+          // PUDING: SVG
+          // Regular urls for CSS & SASS
+          {
+            test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+            loader: require.resolve('url-loader'),
+          },
+          // PUDING: Markdown
+          {
+            test: /\.md$/,
+            use: [
+              require.resolve('babel-loader'),
+              {
+                // Adds frontmatter to export
+                loader: require.resolve('mdx-frontmatter-loader'),
+              },
+              {
+                loader: require.resolve('@mdx-js/loader'),
+                options: {
+                  mdPlugins: [
+                    [
+                      // Removes frontMatter from component
+                      require('remark-frontmatter'),
+                      { type: 'yaml', marker: '-', fence: '---' },
+                    ],
+                  ],
+                },
+              },
+            ],
           },
           // "file" loader makes sure those assets get served by WebpackDevServer.
           // When you `import` an asset, you get its (virtual) filename.

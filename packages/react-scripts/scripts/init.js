@@ -44,6 +44,11 @@ module.exports = function(
     eject: 'react-scripts eject',
   };
 
+  appPackage.title = 'Example App';
+  appPackage.description = 'Example Puding Application';
+  appPackage.homepage = 'https://example.com';
+  appPackage.image = 'https://example.com/open-graph/image.jpg';
+
   fs.writeFileSync(
     path.join(appPath, 'package.json'),
     JSON.stringify(appPackage, null, 2)

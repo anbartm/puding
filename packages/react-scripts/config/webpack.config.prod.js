@@ -43,7 +43,10 @@ const uploadsExist = fs.existsSync('src/assets/uploads');
 const copyablePaths = uploadsExist
   ? [{ from: 'src/assets/uploads', to: 'assets/uploads' }]
   : [];
-const copyWebpackPlugin = new CopyWebpackPlugin(copyablePaths, {});
+// PUDING: Copy uploads, ignore dofiles
+const copyWebpackPlugin = new CopyWebpackPlugin(copyablePaths, {
+  ignore: ['.*'],
+});
 
 // Assert this just to be safe.
 // Development builds of React are slow and not intended for production.
@@ -185,6 +188,8 @@ module.exports = {
               // @remove-on-eject-begin
               babelrc: false,
               presets: [require.resolve('babel-preset-react-app')],
+              // PUDING
+              plugins: [require.resolve('babel-plugin-macros')],
               // @remove-on-eject-end
               compact: true,
             },
@@ -270,7 +275,7 @@ module.exports = {
                         sourceMap: shouldUseSourceMap,
                       },
                     },
-                    'sass-loader',
+                    require.resolve('sass-loader'),
                   ],
                 },
                 extractTextPluginOptions
@@ -279,9 +284,52 @@ module.exports = {
             // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
           },
           // PUDING: SVG
+          // Use svgr for JavaScript
           {
-            test: /\.svg$/,
-            loader: 'svg-inline-loader',
+            test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+            issuer: {
+              test: /\.jsx?$/,
+            },
+            // Import both as component and url
+            use: [
+              require.resolve('babel-loader'),
+              {
+                loader: require.resolve('@svgr/webpack'),
+                options: {
+                  svgo: false, // TODO: svgo removes viewBox
+                },
+              },
+              require.resolve('url-loader'),
+            ],
+          },
+          // PUDING: SVG
+          // Regular urls for CSS & SASS
+          {
+            test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+            loader: require.resolve('url-loader'),
+          },
+          // PUDING: Markdown
+          {
+            test: /\.md$/,
+            use: [
+              require.resolve('babel-loader'),
+              {
+                // Adds frontmatter to export
+                loader: require.resolve('mdx-frontmatter-loader'),
+              },
+              {
+                loader: require.resolve('@mdx-js/loader'),
+                options: {
+                  mdPlugins: [
+                    [
+                      // Removes frontMatter from output
+                      require('remark-frontmatter'),
+                      { type: 'yaml', marker: '-', fence: '---' },
+                    ],
+                  ],
+                },
+              },
+            ],
           },
           // "file" loader makes sure assets end up in the `build` folder.
           // When you `import` an asset, you get its filename.

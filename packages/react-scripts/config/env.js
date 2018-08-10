@@ -69,34 +69,17 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 const REACT_APP = /^REACT_APP_/i;
 
 // PUDING: Prepare OpenGraph data variables
-const contentIndexPath = 'src/content/index.json';
-let openGraphData = {
-  OPENGRAPH_TITLE: null,
-  OPENGRAPH_DESCRIPTION: null,
-  OPENGRAPH_IMAGE: null,
+const {
+  title,
+  description,
+  homepage,
+  image,
+} = require(`${appDirectory}/package.json`);
+const openGraphData = {
+  OPENGRAPH_TITLE: title,
+  OPENGRAPH_DESCRIPTION: description,
+  OPENGRAPH_IMAGE: `${homepage}/${image}`,
 };
-if (fs.existsSync(contentIndexPath)) {
-  const indexFile = fs.readFileSync(contentIndexPath);
-  const contentIndex = require(`${appDirectory}/${contentIndexPath}`);
-  if (contentIndex) {
-    const { pages } = contentIndex;
-    if (pages) {
-      const homePage = pages.find(page => page.id === 'home');
-      if (homePage) {
-        const {
-          open_graph_title: OPENGRAPH_TITLE,
-          open_graph_description: OPENGRAPH_DESCRIPTION,
-          open_graph_image: OPENGRAPH_IMAGE,
-        } = homePage;
-        openGraphData = {
-          OPENGRAPH_TITLE,
-          OPENGRAPH_DESCRIPTION,
-          OPENGRAPH_IMAGE,
-        };
-      }
-    }
-  }
-}
 
 function getClientEnvironment(publicUrl) {
   const raw = Object.keys(process.env)
