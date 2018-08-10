@@ -1,3 +1,5 @@
+// Deprecated: Import Markdown & metadata with MarkdownLoader
+
 const fs = require('fs');
 const { lstatSync, readdirSync } = fs;
 const { join } = require('path');
