@@ -1,10 +1,8 @@
 const fs = require('fs');
 const { lstatSync, readdirSync } = fs;
 const { join } = require('path');
-const marked = require('marked');
-// const md5 = require('md5');
 
-const { loadFront } = require('yaml-front-matter');
+const frontmatter = require('front-matter');
 
 const CONTENT_DIR = 'src/content';
 
@@ -21,8 +19,7 @@ function getMDPath(name) {
 
 function loadFrontMatter(path) {
   const file = fs.readFileSync(path);
-  const matter = loadFront(file);
-
+  const matter = frontmatter(file.toString());
   return matter;
 }
 
@@ -37,10 +34,8 @@ function getItem(collection, file) {
   const name = getName(file);
   const path = `${collection}/${name}`;
   const filePath = getMDPath(path);
-  const frontMatter = loadFrontMatter(filePath);
-  // const hash = md5(frontMatter.id).substring(0, 6)
-  const __content = marked(frontMatter.__content);
-  return { ...frontMatter, __content };
+  const { attributes } = loadFrontMatter(filePath);
+  return { ...attributes };
 }
 
 function sortByDate(a, b, order = 'ASC') {

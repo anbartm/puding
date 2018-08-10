@@ -208,6 +208,7 @@ inquirer
     console.log(`  Adding ${cyan('Babel')} preset`);
     appPackage.babel = {
       presets: ['react-app'],
+      plugins: ['macros'],
     };
 
     // Add ESlint config
