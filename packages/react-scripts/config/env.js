@@ -78,7 +78,7 @@ const {
 const openGraphData = {
   OPENGRAPH_TITLE: title,
   OPENGRAPH_DESCRIPTION: description,
-  OPENGRAPH_IMAGE: `${homepage}/${image}`,
+  OPENGRAPH_IMAGE: image,
 };
 
 function getClientEnvironment(publicUrl) {
