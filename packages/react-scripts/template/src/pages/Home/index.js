@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withMulticat } from 'multicat-react';
 
+import HomeMarkdown, { attributes as homeMetadata } from 'content/index.md';
+
 class Home extends PureComponent {
   static propTypes = {
     multicatEvent: PropTypes.func,
@@ -12,10 +14,12 @@ class Home extends PureComponent {
     multicatView('/');
   }
   render() {
+    const { title } = homeMetadata;
     return (
       <div className="Home">
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          <h1>{title}</h1>
+          <HomeMarkdown />
         </p>
       </div>
     );
