@@ -285,7 +285,9 @@ module.exports = {
           {
             test: /\.md$/,
             use: [
-              require.resolve('babel-loader'),
+              {
+                loader: 'babel-loader',
+              },
               {
                 // Adds frontmatter to export
                 loader: require.resolve('mdx-frontmatter-loader'),
@@ -360,15 +362,15 @@ module.exports = {
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // PUDING: Watch for content changes
-    new FilewatcherPlugin({
-      watchFileRegex: ['src/content/**/*.md'],
-      onReadyCallback: function() {
-        void 0;
-      },
-      onChangeCallback: function(path) {
-        rebuildContent();
-      },
-    }),
+    // new FilewatcherPlugin({
+    //   watchFileRegex: ['src/content/**/*.md'],
+    //   onReadyCallback: function() {
+    //     void 0;
+    //   },
+    //   onChangeCallback: function(path) {
+    //     rebuildContent();
+    //   },
+    // }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
