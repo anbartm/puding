@@ -285,7 +285,9 @@ module.exports = {
           {
             test: /\.md$/,
             use: [
-              require.resolve('babel-loader'),
+              {
+                loader: 'babel-loader',
+              },
               {
                 // Adds frontmatter to export
                 loader: require.resolve('mdx-frontmatter-loader'),
