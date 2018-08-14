@@ -48,6 +48,17 @@ const copyWebpackPlugin = new CopyWebpackPlugin(copyablePaths, {
   ignore: ['.*'],
 });
 
+// PUDING: Shared babel options
+const babelLoaderOptions = {
+  // @remove-on-eject-begin
+  babelrc: false,
+  presets: [require.resolve('babel-preset-react-app')],
+  // PUDING: Support macros
+  plugins: [require.resolve('babel-plugin-macros')],
+  // @remove-on-eject-end
+  compact: true,
+}
+
 // Assert this just to be safe.
 // Development builds of React are slow and not intended for production.
 if (env.stringified['process.env'].NODE_ENV !== '"production"') {
@@ -184,15 +195,7 @@ module.exports = {
             test: /\.(js|jsx|mjs)$/,
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
-            options: {
-              // @remove-on-eject-begin
-              babelrc: false,
-              presets: [require.resolve('babel-preset-react-app')],
-              // PUDING
-              plugins: [require.resolve('babel-plugin-macros')],
-              // @remove-on-eject-end
-              compact: true,
-            },
+            options: babelLoaderOptions,
           },
           // The notation here is somewhat confusing.
           // "postcss" loader applies autoprefixer to our CSS.
@@ -292,6 +295,7 @@ module.exports = {
             },
             // Import both as component and url
             use: [
+              // No optiokns required for babel-loader
               require.resolve('babel-loader'),
               {
                 loader: require.resolve('@svgr/webpack'),
@@ -312,7 +316,12 @@ module.exports = {
           {
             test: /\.md$/,
             use: [
-              require.resolve('babel-loader'),
+              {
+                loader: require.resolve('babel-loader'),
+                // Needs to support JSX,
+                // shares options with /\.jsx?$/ loader
+                options: babelLoaderOptions,
+              },
               {
                 // Adds frontmatter to export
                 loader: require.resolve('mdx-frontmatter-loader'),

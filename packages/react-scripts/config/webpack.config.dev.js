@@ -46,6 +46,23 @@ const rebuildContent = () => {
   });
 };
 
+const babelLoaderOptions = {
+  // @remove-on-eject-begin
+  babelrc: false,
+  presets: [require.resolve('babel-preset-react-app')],
+  // @remove-on-eject-end
+  // This is a feature of `babel-loader` for webpack (not Babel itself).
+  // It enables caching results in ./node_modules/.cache/babel-loader/
+  // directory for faster rebuilds.
+  cacheDirectory: true,
+  plugins: [
+    // PUDING: Hot reload components,
+    require.resolve('react-hot-loader/babel'),
+    // PUDING: Support Babel macros
+    require.resolve('babel-plugin-macros'),
+  ],
+}
+
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
@@ -181,22 +198,8 @@ module.exports = {
             test: /\.(js|jsx|mjs)$/,
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
-            options: {
-              // @remove-on-eject-begin
-              babelrc: false,
-              presets: [require.resolve('babel-preset-react-app')],
-              // @remove-on-eject-end
-              // This is a feature of `babel-loader` for webpack (not Babel itself).
-              // It enables caching results in ./node_modules/.cache/babel-loader/
-              // directory for faster rebuilds.
-              cacheDirectory: true,
-              // PUDING: Hot reload components,
-              // PUDING: Support Babel macros
-              plugins: [
-                require.resolve('react-hot-loader/babel'),
-                require.resolve('babel-plugin-macros'),
-              ],
-            },
+            // PUDING: Moved config options into a shared object
+            options: babelLoaderOptions,
           },
           // "postcss" loader applies autoprefixer to our CSS.
           // "css" loader resolves paths in CSS and adds assets as dependencies.
@@ -265,6 +268,7 @@ module.exports = {
             },
             // Import both as component and url
             use: [
+              // No options are required for babel loadedr
               require.resolve('babel-loader'),
               {
                 loader: require.resolve('@svgr/webpack'),
@@ -287,22 +291,9 @@ module.exports = {
             use: [
               {
                 loader: require.resolve('babel-loader'),
-                options: {
-                  // @remove-on-eject-begin
-                  babelrc: false,
-                  presets: [require.resolve('babel-preset-react-app')],
-                  // @remove-on-eject-end
-                  // This is a feature of `babel-loader` for webpack (not Babel itself).
-                  // It enables caching results in ./node_modules/.cache/babel-loader/
-                  // directory for faster rebuilds.
-                  cacheDirectory: true,
-                  // PUDING: Hot reload components,
-                  // PUDING: Support Babel macros
-                  plugins: [
-                    require.resolve('react-hot-loader/babel'),
-                    require.resolve('babel-plugin-macros'),
-                  ],
-                },
+                // Needs to support JSX,
+                // shares options with /\.jsx?$/ loader
+                options: babelLoaderOptions,
               },
               {
                 // Adds frontmatter to export
