@@ -287,11 +287,27 @@ module.exports = {
             use: [
               {
                 loader: require.resolve('babel-loader'),
+                options: {
+                  // @remove-on-eject-begin
+                  babelrc: false,
+                  presets: [require.resolve('babel-preset-react-app')],
+                  // @remove-on-eject-end
+                  // This is a feature of `babel-loader` for webpack (not Babel itself).
+                  // It enables caching results in ./node_modules/.cache/babel-loader/
+                  // directory for faster rebuilds.
+                  cacheDirectory: true,
+                  // PUDING: Hot reload components,
+                  // PUDING: Support Babel macros
+                  plugins: [
+                    require.resolve('react-hot-loader/babel'),
+                    require.resolve('babel-plugin-macros'),
+                  ],
+                },
               },
-              // {
-              //   // Adds frontmatter to export
-              //   loader: require.resolve('mdx-frontmatter-loader'),
-              // },
+              {
+                // Adds frontmatter to export
+                loader: require.resolve('mdx-frontmatter-loader'),
+              },
               {
                 loader: require.resolve('@mdx-js/loader'),
                 options: {
